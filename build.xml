@@ -128,10 +128,20 @@
 
     <target name="build-runtime-utils" description="Create RuntimeUtils.jar in testlib directory. Necessary for profiling"
             depends="compile">
+
+        <property name="RuntimeUtilsClass" value="org.broad.igv.util.RuntimeUtils"/>
+
+        <classfileset dir="${basedir}" id="RuntimeUtilsFiles">
+            <root classname="${RuntimeUtilsClass}"/>
+        </classfileset>
+
         <jar destfile="${testlib.dir}/RuntimeUtils.jar" basedir="${tmp.dir}" compress="true" duplicate="preserve">
+            <include id="@{RuntimeUtilsFiles}"/>
             <include name="org/broad/igv/util/RuntimeUtils.class"/>
+            <include name="org/broad/igv/util/RuntimeUtils$*.class"/>
             <manifest>
-                <attribute name="Premain-Class" value="org.broad.igv.util.RuntimeUtils"/>
+                <attribute name="Premain-Class" value="${RuntimeUtilsClass}"/>
+                <attribute name="Class-Path" value="../../lib"/>
             </manifest>
     </jar>
     </target>
