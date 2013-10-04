@@ -39,9 +39,9 @@ public class ArrayMemoryTest {
     //GetObjectSize is not particularly accurate, because it's not recursive
     //TODO 3rd party implementations of things like IntArrayList exist. Use them?
     /**NOTE:
-     * RuntimeUtils has to be put in a jar and included as instrumentation in the
+     * JavaAgent has to be put in a jar and included as instrumentation in the
        junit tests, as in:
-       <jvmarg value="-javaagent:${testlib.dir}/RuntimeUtils.jar"/>
+       <jvmarg value="-javaagent:${testlib.dir}/JavaAgent.jar"/>
       for this to work.
     **/
     @Ignore
@@ -54,8 +54,8 @@ public class ArrayMemoryTest {
         long memArrList = 0;
 
         for (int ii = 0; ii < size; ii++) {
-            memArrList += RuntimeUtils.getObjectSize(tmp2.get(ii));
-            memIntArrList += RuntimeUtils.getObjectSize(tmp.get(ii));
+            memArrList += JavaAgent.getObjectSize(tmp2.get(ii));
+            memIntArrList += JavaAgent.getObjectSize(tmp.get(ii));
         }
         assertTrue(memIntArrList < memArrList);
 
